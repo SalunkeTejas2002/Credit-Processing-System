@@ -1,0 +1,21 @@
+# Backend build output
+/backend/target/
+
+# IDE settings and local workspace metadata
+/.idea/
+
+# Log files generated during development or runtime
+*.log
+
+# Frontend dependencies and build output
+/frontend/node_modules/
+/frontend/dist/
+
+# Environment files containing local secrets and configuration
+.env
+
+# Compiled Java classes
+*.class
+
+# macOS metadata files
+.DS_Store
