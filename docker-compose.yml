@@ -1,0 +1,31 @@
+services:
+
+  mongo:
+    image: mongo:7
+    container_name: mongodb
+    restart: unless-stopped
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+
+    container_name: credit-processing-backend
+
+    restart: unless-stopped
+
+    depends_on:
+      - mongo
+
+    ports:
+      - "8081:8080"
+
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/credit-processing-system
+volumes:
+  mongo-data:
