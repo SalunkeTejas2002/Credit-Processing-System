@@ -35,10 +35,26 @@ pipeline {
         stage('Health Check') {
             steps {
                 sh '''
+                    echo "Waiting for application..."
                     sleep 20
                     curl http://localhost:8081/actuator/health
                 '''
             }
+        }
+    }
+
+    post {
+
+        success {
+            echo "Application deployed successfully."
+        }
+
+        failure {
+            echo "Deployment Failed."
+        }
+
+        always {
+            sh 'docker ps'
         }
     }
 }
