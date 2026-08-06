@@ -23,19 +23,20 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                dir('backend') {
-                    sh 'docker build -t credit-processing-backend .'
-                }
-            }
-        }
-
         stage('Deploy') {
             steps {
                 sh '''
                     docker compose down || true
                     docker compose up -d --build
+                '''
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                sh '''
+                    sleep 20
+                    curl http://localhost:8081/actuator/health
                 '''
             }
         }
